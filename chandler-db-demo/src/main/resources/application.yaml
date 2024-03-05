@@ -1,5 +1,5 @@
 server:
-  port: 18070
+  port: 18071
 spring:
   application:
     name: instance-client
@@ -13,9 +13,9 @@ spring:
   datasource:
     username: root
   #数据库登陆密码
-    password: 123456
+    password: 9ymdSjflyI%g
   #数据库url
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true
+    url: jdbc:mysql://am-uf6w02i966dd03a79167320.ads.aliyuncs.com:3306/information_schema?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true
   #数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
