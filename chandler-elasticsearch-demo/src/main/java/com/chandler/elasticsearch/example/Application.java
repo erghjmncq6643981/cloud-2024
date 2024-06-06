@@ -1,6 +1,7 @@
 
-package com.chandler.instance.client.example;
+package com.chandler.elasticsearch.example;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author 钱丁君-chandler 4/2/21 10:05 PM
  * @since 1.8
  */
+@MapperScan("com.chandler.elasticsearch.example.domain.mapper")
+//@EnableDiscoveryClient
 @SpringBootApplication
 public class Application {
 	public static void main(String[] args) {

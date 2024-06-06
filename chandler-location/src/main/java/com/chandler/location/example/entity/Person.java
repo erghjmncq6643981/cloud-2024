@@ -1,4 +1,4 @@
-package com.chandler.instance.client.example.entity;
+package com.chandler.location.example.entity;
 
 import lombok.Builder;
 import lombok.Getter;

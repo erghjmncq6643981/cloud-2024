@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chandler.location.example.domain.mapper.LocationMapper">
+  <resultMap id="BaseResultMap" type="com.chandler.location.example.domain.dataobject.Location">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="lpn" jdbcType="VARCHAR" property="lpn" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="direction" jdbcType="VARCHAR" property="direction" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, longitude, latitude, lpn, `time`, direction
+  </sql>
+
+  <select id="selectFirst" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from location
+    where task_id=#{taskId,jdbcType=BIGINT}
+    order by id
+    limit 1
+  </select>
+
+  <select id="selectEnd" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from location
+    where task_id=#{taskId,jdbcType=BIGINT}
+    order by id desc
+    limit 1
+  </select>
+
+  <select id="selectTarget" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from location
+    where in_polygon=#{inPolygon,jdbcType=TINYINT}
+    and time>'2024-02-15 00:00:00'
+  </select>
+
+  <select id="selectALL" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from location
+    where in_polygon=1
+    order by time desc
+    limit #{size}
+  </select>
+
+  <insert id="batchSave" parameterType="com.chandler.location.example.domain.dataobject.Location">
+    INSERT INTO location (longitude, latitude, lpn, task_id,
+    `time`, direction)
+    VALUES
+    <foreach collection="locations" item="location" separator=",">
+      (
+      #{location.longitude},
+      #{location.latitude},
+      #{location.lpn},
+      #{location.taskId},
+      #{location.time},
+      #{location.direction})
+    </foreach>
+  </insert>
+
+</mapper>

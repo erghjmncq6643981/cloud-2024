@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.chandler</groupId>
-    <artifactId>chandler-instance-client</artifactId>
+    <artifactId>chandler-elasticsearch-demo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <description>Demo project for Spring Boot</description>
 
@@ -20,6 +20,7 @@
         <boot-mybatis.version>3.0.3</boot-mybatis.version>
         <boot-druid.version>1.2.21</boot-druid.version>
         <boot-mapper.version>4.2.3</boot-mapper.version>
+        <elasticsearch.version>8.12.2</elasticsearch.version>
 
         <guava.version>33.0.0-jre</guava.version>
         <fastjson.version>2.0.47</fastjson.version>
@@ -58,12 +59,6 @@
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>${boot-mapper.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mybatis-spring</artifactId>
-                    <groupId>org.mybatis</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -76,8 +71,29 @@
             <version>${boot-mybatis.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>${elasticsearch.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <dependency>
@@ -97,13 +113,6 @@
             <artifactId>fastjson2</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-
-        <!-- swagger 3 -->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-boot-starter</artifactId>-->
-<!--            <version>${springfox.version}</version>-->
-<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -130,7 +139,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2021.0.2</version>
+                <version>2023.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -143,10 +152,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--<plugin>-->
-            <!--<groupId>pl.project13.maven</groupId>-->
-            <!--<artifactId>git-commit-id-plugin</artifactId>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 

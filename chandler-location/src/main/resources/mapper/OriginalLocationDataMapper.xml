@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chandler.location.example.domain.mapper.OriginalLocationDataMapper">
+  <resultMap id="BaseResultMap" type="com.chandler.location.example.domain.dataobject.OriginalLocationData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="lpn" jdbcType="VARCHAR" property="lpn" />
+    <result column="lon_and_lat" jdbcType="VARCHAR" property="lonAndLat" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="direction" jdbcType="VARCHAR" property="direction" />
+    <result column="speed" jdbcType="TINYINT" property="speed" />
+    <result column="source_type" jdbcType="TINYINT" property="sourceType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="distrust_level" jdbcType="TINYINT" property="distrustLevel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lpn, lon_and_lat, report_time, direction, speed, source_type, `status`,distrust_level
+  </sql>
+
+  <select id="selectData" parameterType="com.chandler.location.example.entity.OriginalLocationParam"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from original_location_data
+    where lpn = #{lpn,jdbcType=VARCHAR}
+    and source_type = #{sourceType,jdbcType=TINYINT}
+    <if test="timeFrom != null">
+      AND  <![CDATA[ report_time >= #{timeFrom,jdbcType=TIMESTAMP} ]]>
+    </if>
+    <if test="timeTo != null">
+      AND  <![CDATA[  report_time<= #{timeTo,jdbcType=TIMESTAMP} ]]>
+    </if>
+    order by report_time
+  </select>
+
+  <insert id="batchSave" parameterType="com.chandler.location.example.domain.dataobject.OriginalLocationData">
+    INSERT INTO original_location_data (lpn, lon_and_lat, report_time, direction, speed, source_type)
+    VALUES
+    <foreach collection="points" item="point" separator=",">
+      (#{point.lpn,jdbcType=VARCHAR},
+      #{point.lonAndLat,jdbcType=VARCHAR},
+      #{point.reportTime,jdbcType=TIMESTAMP},
+      #{point.direction,jdbcType=VARCHAR},
+      #{point.speed,jdbcType=TINYINT},
+      #{point.sourceType,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+</mapper>

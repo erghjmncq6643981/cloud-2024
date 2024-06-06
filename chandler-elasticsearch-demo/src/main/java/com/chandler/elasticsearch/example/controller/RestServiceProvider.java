@@ -1,8 +1,8 @@
-package com.chandler.instance.client.example.controller;
+package com.chandler.elasticsearch.example.controller;
 
-import com.chandler.instance.client.example.domain.dataobject.User;
-import com.chandler.instance.client.example.domain.mapper.UserMapper;
-import com.chandler.instance.client.example.entity.Person;
+import com.chandler.elasticsearch.example.entity.Person;
+import com.chandler.elasticsearch.example.domain.dataobject.User;
+import com.chandler.elasticsearch.example.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
  * @author 钱丁君-chandler 2019/5/17下午2:00
  * @since 1.8
  */
+@RestController
 @RequestMapping("demo")
 public class RestServiceProvider {
     @Autowired

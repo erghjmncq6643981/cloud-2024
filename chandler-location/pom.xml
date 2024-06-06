@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.chandler</groupId>
-    <artifactId>chandler-instance-client</artifactId>
+    <artifactId>chandler-location</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <description>Demo project for Spring Boot</description>
 
@@ -16,11 +16,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <boot-mybatis.version>3.0.3</boot-mybatis.version>
         <boot-druid.version>1.2.21</boot-druid.version>
         <boot-mapper.version>4.2.3</boot-mapper.version>
 
+        <poi.version>4.1.2</poi.version>
         <guava.version>33.0.0-jre</guava.version>
         <fastjson.version>2.0.47</fastjson.version>
         <springfox.version>3.0.0</springfox.version>
@@ -31,15 +32,6 @@
 
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-consul-discovery</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
@@ -80,6 +72,24 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
+        <!-- 操作以 .xls 为后缀的 Excel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <!-- 操作以 .xlsx 为后缀的 Excel，自动带入poi和poi-ooxml-schemas -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -96,6 +106,11 @@
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.26</version>
         </dependency>
 
         <!-- swagger 3 -->

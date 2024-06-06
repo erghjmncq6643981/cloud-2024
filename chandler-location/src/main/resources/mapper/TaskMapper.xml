@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chandler.location.example.domain.mapper.TaskMapper">
+    <resultMap id="BaseResultMap" type="com.chandler.location.example.domain.dataobject.Task">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="lpn" jdbcType="VARCHAR" property="lpn"/>
+        <result column="second_lpn" jdbcType="VARCHAR" property="secondLpn"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="driving_mileage" jdbcType="VARCHAR" property="drivingMileage"/>
+        <result column="parse_status" jdbcType="VARCHAR" property="parseStatus"/>
+    </resultMap>
+    <select id="selectTask" resultMap="BaseResultMap">
+        select id,lpn,second_lpn,start_time,end_time,status, driving_mileage,parse_status
+        from task
+        where status ='done'
+        and parse_status is null
+        limit 1
+    </select>
+    <select id="selectParseTasks" resultMap="BaseResultMap">
+        select id,lpn,second_lpn,start_time,end_time,status, driving_mileage,parse_status
+        from task
+        where status='done'
+        and parse_status is null
+        limit 100
+    </select>
+    <select id="selectExsit" parameterType="com.chandler.location.example.domain.dataobject.Task" resultMap="BaseResultMap">
+        select id,lpn,second_lpn,start_time,end_time,status, driving_mileage,parse_status
+        from task
+        where lpn=#{lpn,jdbcType=VARCHAR}
+        and start_time = #{startTime,jdbcType=TIMESTAMP}
+        and end_time = #{endTime,jdbcType=TIMESTAMP}
+        limit 1
+    </select>
+    <select id="selectTasks" parameterType="com.chandler.location.example.domain.dataobject.Task" resultMap="BaseResultMap">
+        select id,lpn,second_lpn,start_time,end_time,status, driving_mileage,parse_status
+        from task
+        <where>
+            status='start'
+            <if test="id!= null">
+                AND id=#{id,jdbcType=BIGINT}
+            </if>
+            <if test="lpn!= null and lpn != '' ">
+                AND lpn=#{lpn,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime!= null">
+                AND  <![CDATA[ start_time >= #{startTime,jdbcType=TIMESTAMP} ]]>
+            </if>
+            <if test="endTime!= null ">
+                AND  <![CDATA[ end_time <= #{endTime,jdbcType=TIMESTAMP} ]]>
+            </if>
+        </where>
+        limit 50
+    </select>
+</mapper>

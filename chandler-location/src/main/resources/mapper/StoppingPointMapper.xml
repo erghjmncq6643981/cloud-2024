@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chandler.location.example.domain.mapper.StoppingPointMapper">
+  <resultMap id="BaseResultMap" type="com.chandler.location.example.domain.dataobject.StoppingPoint">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="stop_minutes" jdbcType="SMALLINT" property="stopMinutes" />
+    <result column="stop_time" jdbcType="VARCHAR" property="stopTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="lon_and_lat" jdbcType="VARCHAR" property="lonAndLat" />
+    <result column="distance" jdbcType="INTEGER" property="distance" />
+    <result column="distance2" jdbcType="INTEGER" property="distance2" />
+    <result column="door_point" jdbcType="TINYINT" property="doorPoint" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_id, stop_minutes,stop_time, start_time, end_time, address, lon_and_lat,
+    distance,distance2,door_point,province,city,district,township
+  </sql>
+
+  <select id="selectPoints" resultMap="BaseResultMap">
+    select id, task_id, stop_minutes,stop_time, start_time, end_time, address, lon_and_lat,
+           distance,distance2,door_point,province,city,district,township
+    from stopping_point
+    <where>
+     task_id=#{taskId,jdbcType=BIGINT}
+    </where>
+  </select>
+
+  <insert id="batchSave" parameterType="com.chandler.location.example.domain.dataobject.StoppingPoint">
+    INSERT INTO stopping_point (task_id, stop_minutes,stop_time, start_time,
+    end_time, lon_and_lat,distance,distance2,province,city,district,township)
+    VALUES
+    <foreach collection="points" item="point" separator=",">
+      (#{point.taskId,jdbcType=BIGINT},
+       #{point.stopMinutes,jdbcType=VARCHAR},
+      #{point.stopTime,jdbcType=VARCHAR},
+       #{point.startTime,jdbcType=TIMESTAMP},
+      #{point.endTime,jdbcType=TIMESTAMP},
+      #{point.lonAndLat,jdbcType=VARCHAR},
+      #{point.distance,jdbcType=INTEGER},
+      #{point.distance2,jdbcType=INTEGER},
+      #{point.province,jdbcType=VARCHAR},
+      #{point.city,jdbcType=VARCHAR},
+      #{point.district,jdbcType=VARCHAR},
+      #{point.township,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

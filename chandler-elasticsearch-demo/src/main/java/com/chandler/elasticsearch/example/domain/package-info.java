@@ -1,0 +1,1 @@
+package com.chandler.elasticsearch.example.domain;

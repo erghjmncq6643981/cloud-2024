@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chandler.location.example.domain.mapper.MergeLocationDatMapper">
+  <resultMap id="BaseResultMap" type="com.chandler.location.example.domain.dataobject.MergeLocationData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="lpn" jdbcType="VARCHAR" property="lpn" />
+    <result column="lon_and_lat" jdbcType="VARCHAR" property="lonAndLat" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="direction" jdbcType="VARCHAR" property="direction" />
+    <result column="speed" jdbcType="TINYINT" property="speed" />
+    <result column="source_type" jdbcType="TINYINT" property="sourceType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lpn, lonAndLat, report_time, direction, speed, source_type, `status`
+  </sql>
+</mapper>
