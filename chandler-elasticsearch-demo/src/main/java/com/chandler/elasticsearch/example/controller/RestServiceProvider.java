@@ -24,7 +24,7 @@ public class RestServiceProvider {
 
         return Mono.just(Person.builder()
                 .name(name)
-                .age("18")
+                .age(18)
                 .sex("man")
                 .build());
     }

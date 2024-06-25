@@ -2,6 +2,8 @@ package com.chandler.elasticsearch.example.entity;
 
 import lombok.*;
 
+import java.util.List;
+
 /**
  * 类功能描述
  *
@@ -14,6 +16,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Person {
     private String name;
-    private String age;
     private String sex;
+    private Integer age;
+    private List<ChargeItem> items;
 }
