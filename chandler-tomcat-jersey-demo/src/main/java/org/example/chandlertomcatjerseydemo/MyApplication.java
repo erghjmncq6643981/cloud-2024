@@ -11,8 +11,10 @@
  */
 package org.example.chandlertomcatjerseydemo;
 
+import org.example.chandlertomcatjerseydemo.resource.HelloResource;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.RequestContextFilter;
 
 import javax.ws.rs.ApplicationPath;
@@ -24,20 +26,10 @@ import javax.ws.rs.ApplicationPath;
  * @version 1.0.0
  * @since 1.8
  */
-//@ApplicationPath("/jersey")
+@Configuration
+@ApplicationPath("/jersey")
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
-        // 初始化Resource，以指定包的形式初始化，多个包之间以分号隔开
-        packages("org.example.chandlertomcatjerseydemo.resource");
-        packages("org.glassfish.jersey.examples.multipart");
-
-        // 注册spring filter
-        register(RequestContextFilter.class);
-
-        // 注册数据转换器，支持传参和返回信息json格式与bean之间的自动转换
-        register(JacksonJsonProvider.class);
-
-        // 注册支持multipart-formdata格式的请求
-        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
+        register(HelloResource.class);
     }
 }
