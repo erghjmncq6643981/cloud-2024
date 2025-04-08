@@ -1,0 +1,1 @@
+package com.chandler.jpa.example.domain;
