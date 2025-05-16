@@ -38,27 +38,27 @@ public class DataSyncClient {
     private static ScheduledExecutorService scheduledExecutor2 = new ScheduledThreadPoolExecutor(1);
 
     public static void main(String[] args) {
-        scheduledExecutor.scheduleAtFixedRate(()->{
-            log.info("orderDocument调用开始");
-            Request request = null;
-            try {
-                URI uri =
-                        new URIBuilder(new URI("https://api.carrierglobe.com/duckbill-data-query-server/workBench/compensate/orderDocument"))
-                                .addParameter("startTime","2025-04-01 00:00:00")
-                                .addParameter("endTime","2025-04-03 00:00:00")
-                                .build();
-                request = Request.get(uri);
-                Response response = request.execute();
-                String resultContent = response.returnContent().asString();
-                log.info("orderDocument调用成功！resultContent:{}", resultContent);
-            } catch (URISyntaxException e) {
-                log.error("httpclient failure!", e);
-                throw new RuntimeException(e);
-            }catch (IOException e) {
-                log.error(
-                        "httpclient failure！request：{}； ", request, e);
-            }
-        }, 0, 5, TimeUnit.MINUTES);
+//        scheduledExecutor.scheduleAtFixedRate(()->{
+//            log.info("orderDocument调用开始");
+//            Request request = null;
+//            try {
+//                URI uri =
+//                        new URIBuilder(new URI("https://api.carrierglobe.com/duckbill-data-query-server/workBench/compensate/orderDocument"))
+//                                .addParameter("startTime","2025-05-15 00:00:00")
+//                                .addParameter("endTime","2025-05-17 00:00:00")
+//                                .build();
+//                request = Request.get(uri);
+//                Response response = request.execute();
+//                String resultContent = response.returnContent().asString();
+//                log.info("orderDocument调用成功！resultContent:{}", resultContent);
+//            } catch (URISyntaxException e) {
+//                log.error("httpclient failure!", e);
+//                throw new RuntimeException(e);
+//            }catch (IOException e) {
+//                log.error(
+//                        "httpclient failure！request：{}； ", request, e);
+//            }
+//        }, 0, 5, TimeUnit.MINUTES);
 
         scheduledExecutor2.scheduleAtFixedRate(()->{
             log.info("调度面板，调用开始");
@@ -66,8 +66,8 @@ public class DataSyncClient {
             try {
                 URI uri =
                         new URIBuilder(new URI("https://api.carrierglobe.com/duckbill-data-query-server/task/compensate/dispatch"))
-                                .addParameter("startTime","2025-04-02 00:00:00")
-                                .addParameter("endTime","2025-04-04 00:00:00")
+                                .addParameter("startTime","2025-05-16 00:00:00")
+                                .addParameter("endTime","2025-05-18 00:00:00")
                                 .build();
                 request = Request.get(uri);
                 Response response = request.execute();
@@ -80,6 +80,23 @@ public class DataSyncClient {
                 log.error(
                         "httpclient failure！request：{}； ", request, e);
             }
-        }, 1, 15, TimeUnit.MINUTES);
+            try {
+                URI uri =
+                        new URIBuilder(new URI("https://api.carrierglobe.com/duckbill-data-query-server/task/compensate/dispatch"))
+                                .addParameter("startTime","2025-05-18 00:00:00")
+                                .addParameter("endTime","2025-06-18 00:00:00")
+                                .build();
+                request = Request.get(uri);
+                Response response = request.execute();
+                String resultContent = response.returnContent().asString();
+                log.info("调度面板，调用成功！resultContent:{}", resultContent);
+            } catch (URISyntaxException e) {
+                log.error("httpclient failure!", e);
+                throw new RuntimeException(e);
+            }catch (IOException e) {
+                log.error(
+                        "httpclient failure！request：{}； ", request, e);
+            }
+        }, 1, 20, TimeUnit.MINUTES);
     }
 }
